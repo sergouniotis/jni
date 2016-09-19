@@ -1,0 +1,78 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<parent>
+		<groupId>ts.java.jni</groupId>
+		<artifactId>linux-modules</artifactId>
+		<version>1.0.0-SNAPSHOT</version>
+		<relativePath>../pom.xml</relativePath>
+	</parent>
+
+	<artifactId>libts_com_service</artifactId>
+	<name>Init_Com_Service Module</name>
+	<url>http://maven.apache.org</url>
+
+	<packaging>so</packaging>
+
+	<build>
+		<plugins>
+
+
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>native-maven-plugin</artifactId>
+				<extensions>true</extensions>
+
+				<configuration>
+					<javahOS>linux</javahOS>
+
+					<compilerExecutable>gcc</compilerExecutable>
+					<linkerExecutable>gcc</linkerExecutable>
+
+					<compilerStartOptions>
+						<compilerStartOption>-fPIC</compilerStartOption>
+						<compilerStartOption>-Wl,--add-stdcall-alias</compilerStartOption>
+						<compilerStartOption>-DBUILD_SO</compilerStartOption>
+						<compilerStartOption>-I/usr/src/linux-headers-4.4.0-21/include</compilerStartOption>
+						<compilerStartOption>-I/usr/src/linux-headers-4.4.0-21/arch/tile/include</compilerStartOption>
+					</compilerStartOptions>
+
+					<linkerStartOptions>
+						<linkerStartOption>-shared</linkerStartOption>
+						<linkerStartOption>-g</linkerStartOption>
+					</linkerStartOptions>
+
+					<sources>
+						<source>
+							<directory>../../src/main/native</directory>
+							<fileNames>
+								<fileName>communication_interface.c</fileName>
+							</fileNames>
+						</source>
+					</sources>
+				</configuration>
+
+				<executions>
+					<execution>
+						<id>javah-communication-interface</id>
+						<phase>generate-sources</phase>
+						<configuration>
+							<javahProvider>default</javahProvider>
+							<javahOutputDirectory>${project.build.directory}/communication-interface</javahOutputDirectory>
+							<workingDirectory>${basedir}</workingDirectory>
+							<javahOutputFileName>communication_interface.h</javahOutputFileName>
+							<javahClassNames>
+								<javahClassName>ts.java.jni.c.CInterface</javahClassName>
+							</javahClassNames>
+						</configuration>
+						<goals>
+							<goal>javah</goal>
+						</goals>
+					</execution>					
+				</executions>
+
+			</plugin>
+		</plugins>
+	</build>
+</project>

@@ -1,0 +1,53 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<parent>
+		<groupId>ts.java.jni</groupId>
+		<artifactId>jni-parent</artifactId>
+		<version>1.0.0-SNAPSHOT</version>
+		<relativePath>../pom.xml</relativePath>
+	</parent>
+
+	<artifactId>java-module</artifactId>
+	<packaging>jar</packaging>
+
+	<name>java-module</name>
+	<url>http://maven.apache.org</url>
+
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-surefire-plugin</artifactId>
+				<configuration>
+					<environmentVariables>
+						<LD_LIBRARY_PATH>${project.basedir}/../native-parent/linux-modules/libts_com_service/target:$LD_LIBRARY_PATH</LD_LIBRARY_PATH>
+					</environmentVariables>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
+
+
+	<dependencies>
+
+		<dependency>
+			<groupId>ts.java.jni</groupId>
+			<artifactId>custom-types</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>ts.java.jni</groupId>
+			<artifactId>c-interface</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>ts.java.jni</groupId>
+			<artifactId>libts_com_service</artifactId>
+			<version>1.0.0-SNAPSHOT</version>
+			<scope>runtime</scope>
+			<type>so</type>
+		</dependency>
+	</dependencies>
+</project>

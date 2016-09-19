@@ -1,0 +1,80 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<parent>
+		<groupId>ts.java.jni</groupId>
+		<artifactId>jni-parent</artifactId>
+		<version>1.0.0-SNAPSHOT</version>
+		<relativePath>../pom.xml</relativePath>
+	</parent>
+
+	<artifactId>native-parent</artifactId>
+	<name>GSA - native parent</name>
+	<packaging>pom</packaging>
+
+
+	<profiles>
+
+		<profile>
+			<id>win32</id>
+			<activation>
+				<property>
+					<name>platform</name>
+					<value>win32</value>
+				</property>
+			</activation>
+			<modules>
+				<module>win32</module>
+			</modules>
+		</profile>
+
+		<profile>
+			<id>hpux</id>
+			<activation>
+				<property>
+					<name>platform</name>
+					<value>hpux</value>
+				</property>
+			</activation>
+			<modules>
+				<module>hpux</module>
+			</modules>
+		</profile>
+
+		<profile>
+			<id>linux</id>
+			<activation>
+				<property>
+					<name>platform</name>
+					<value>linux</value>
+				</property>
+			</activation>
+			<modules>
+				<module>linux-modules</module>
+			</modules>
+		</profile>
+
+	</profiles>
+
+
+	<build>
+		<plugins>
+			<plugin>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<configuration>
+					<source>1.6</source>
+					<target>1.6</target>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
+
+	<dependencies>
+		<dependency>
+			<groupId>ts.java.jni</groupId>
+			<artifactId>c-interface</artifactId>
+		</dependency>
+	</dependencies>
+
+</project>
